@@ -1,0 +1,81 @@
+ bbbarbbbar+           2  jets
+ =======================================
+ Heavy quark masses:
+ m(b)=   4.7000000000000002     
+ Generation cuts for the partonic event sample:
+      Light jets:
+ ptmin=   20.000000000000000       |etamax|=   5.0000000000000000       dR(j-j),dR(Q-j)>  0.20000000000000001     
+      Heavy quarks:
+      b and bbar:
+ ptmin=   20.000000000000000       |etamax|=   5.0000000000000000       dR(bb)>  0.20000000000000001     
+  
+  RUNNING PARAMETERS
+ -------------------
+  
+         Electroweak parameters:
+ iewopt=           3 :
+ input mW, mZ, GF calculate the rest               
+ M(W)=   80.418999999999997       Gamma(W)=   2.0480765325293060     
+ M(Z)=   91.188000000000002       Gamma(Z)=   2.4419442650129684     
+ M(H)=   120.00000000000000       Gamma(H)=   0.0000000000000000     
+  gW=  0.65323291048102583      ; sin^2(thetaW)=  0.22224653309289086      ; 1/aem(mZ)=   132.50697985450981     
+  
+         Quark masses:
+ m(top)=   174.30000000000001       m(b)=   4.7000000000000002     
+  
+        Beams' parameters:
+ beam1=proton, beam2=proton
+ Ebeam=   6800.0000000000000       PDF set=LHAPDF:cteq6l1           
+ as(MZ)[nloop=           1 ] =   0.12978301061973377     
+  
+  
+ starting generation of   100000.00000000000       events
+ average ph-space eff=  0.49622373735870029     
+ avgwgt(pb)=   1316.4626809165122      +-   751.12027314975353       maxwgt=   58327806.474750012     
+ unwgt eff =   2.2570070100037214E-005
+                  
+  sub-processes:  
+                  
+ jproc=           1  total(pb):    777.46997757870838      +-   588.33462372469262     
+ jproc=           2  total(pb):   0.43517102754629705      +-  0.11614893626004341     
+ jproc=           3  total(pb):    39.306347095563744      +-   13.738598737629305     
+ jproc=           4  total(pb):    483.73807848114961      +-   466.72653840875842     
+ jproc=           5  total(pb):    14.795350940776085      +-   5.4939616431399774     
+ jproc=           6  total(pb):   0.71775579281240443      +-  0.59655752841433773     
+                  
+ cumulated cross-section:
+ avgwgt(pb)=   1316.4626809165122      +-   751.12027314975353     
+  
+ starting generation of   100000.00000000000       events
+ average ph-space eff=  0.41904825759734493     
+ avgwgt(pb)=   303.98599447817315      +-   145.33518393208678       maxwgt=   13382533.874613367     
+ unwgt eff =   2.2715129834629733E-005
+                  
+  sub-processes:  
+                  
+ jproc=           1  total(pb):    267.93465054668712      +-   144.67148180754160     
+ jproc=           2  total(pb):   0.47406901590408373      +-  0.15269037211294623     
+ jproc=           3  total(pb):    34.192253794732700      +-   13.865379689988556     
+ jproc=           4  total(pb):    1.3218560803701869      +-  0.63205114092462822     
+ jproc=           5  total(pb):    5.8583452925079889E-002 +-   3.0867175571921902E-002
+ jproc=           6  total(pb):    4.5815875588888231E-003 +-   2.1635114497136191E-003
+                  
+ cumulated cross-section:
+ avgwgt(pb)=   340.52402072350617      +-   142.68867652567650     
+  
+ starting generation of   1000000.0000000000       events
+ average ph-space eff=  0.37952622981679512     
+ avgwgt(pb)=   656.87825321041271      +-   162.13298663127213       maxwgt=   90859973.743151024     
+ unwgt eff =   7.2295668394899559E-006
+                  
+  sub-processes:  
+                  
+ jproc=           1  total(pb):    577.61400137150110      +-   161.90895773478366     
+ jproc=           2  total(pb):    2.6701250694446585      +-   1.2570444576795745     
+ jproc=           3  total(pb):    66.102152961779254      +-   6.9694869071620458     
+ jproc=           4  total(pb):    3.6081961328001664      +-   1.3451808264365608     
+ jproc=           5  total(pb):    6.5683666904798672      +-   4.5496546191522302     
+ jproc=           6  total(pb):   0.31541098479505653      +-  0.15937473878644765     
+                  
+ cumulated cross-section:
+ avgwgt(pb)=   478.60295482619284      +-   107.11450154838849     
