@@ -1,4 +1,4 @@
-# AlpGenMod: AlpGen that works with LHAPDF 6 on modern systems
+# AlpGenMod: AlpGen with LHAPDF 6
 
 This is a modification of AlpGen version 2.14 to work on modern systems
 
