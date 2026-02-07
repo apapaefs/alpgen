@@ -1,36 +1,49 @@
-# ChargePairing
-b-jet charge pairing in multi-Higgs boson production
+# AlpGenMod: AlpGen that works with LHAPDF 6 on modern systems
 
-## Repository Setup
+This is a modification of AlpGen version 2.14 to work on modern systems
 
-1. First clone the repository:
-```
-git clone https://github.com/apapaefs/ChargePairing.git
-```
+# Compilation
 
-2. In the directory of the repository pull the lfs files as well:
+## Standard build (unchanged, no LHAPDF): 
+
+For a standard build (no LHAPDF), e.g. in a directory ```4Qwork```: 
+
 ```
-git lfs install
-git lfs pull
-git lfs checkout
+make gen
 ```
 
-## Analysis 
-The main analyses are: 
+Then link the pdfs with ```./pdflink```
 
-```Code/HwSimPostAnalysis_smear_13.6_variables_CMS.cc``` (no charge pairing)
-and 
-```Code/HwSimPostAnalysis_smear_13.6_variables_CMS.cc``` (with charge pairing)
+## Build with LHAPDF6
 
-The current signal ($pp \rightarrow hhh \rightarrow 6b$) and background (QCD $pp\rightarrow 6b$) samples (at 13.6 TeV) are in:
+To build with LHAPDF 6 (if already in path): 
 
-```Signals/events/HW-gg_hhh_SM.root
-Backgrounds/events/HW-all_events_6b_13.6_new1.root
+```
+make gen-plhapdf LHAPDF=yes
 ```
 
-each has 100k events. The corresponding MG5 total cross sections, cross sections after $h \to b\bar{b}$ (=0.5824) and b-tagging with $p=0.85$, and total number of events at 3/ab are:
+If LHAPDF is not in your PATH:
+```
+make gen-lhapdf LHAPDF=yes LHAPDF_CONFIG=/path/to/lhapdf-config
+```
 
-| MG5 XSEC [fb]	| XSEC * BR * BTAG * KFACS	| Nevents, 3000/fb |
-| ------ | ------ | ------ | 
-| 4.07E-02	| 6.07E-03	| 18.20 | 
-| 1.06E+03	| 7.98E+02	| 2.39E+06 |
+# Usage
+
+The standard input files should work with the following modifications for LHAPDF:
+
+To enable LHAPDF: 
+
+```
+ilhapdf 1
+```
+
+And to choose the PDF name and member:
+
+```
+lhapdfst PDF_NAME
+lhapdfid 0
+```
+
+where ```lhapdfst``` is the set name and ```lhapdfid``` is the id. 
+
+
