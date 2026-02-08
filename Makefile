@@ -55,7 +55,11 @@ PROCS90=$(F90files) $(F90extras)
 # ALPGEN F77 SOURCE
 ALP77= $(alp)/Aproc.f $(alp)/Acp.f $(alp)/Aint.f $(alp)/Asu3.f $(alp)/alpgen.f \
      $(alp)/alppdf.f $(alp)/alputi.f $(alp)/alpsho.f \
+     $(alp)/alplhapdf.f $(alp)/alplhapdf_stubs.f \
      $(alp)/alpgen.inc $(alp)/alpsho.inc
+
+# ALPGEN-TO-LHE CONVERTER
+ALPGENTOLH= alpgentolh/AlpGenToLH.cc alpgentolh/Makefile
 # ALPGEN F90 COMPONENTS
 ALP90= $(alp)/Aint90.f $(alp)/A90.f90
 
