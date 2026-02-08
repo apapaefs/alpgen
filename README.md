@@ -46,4 +46,6 @@ lhapdfid 0
 
 where ```lhapdfst``` is the set name and ```lhapdfid``` is the id. 
 
+# AI/LLM Usage
 
+A large part of these modifications have been generated via ChatGPT and Claude Code. 
