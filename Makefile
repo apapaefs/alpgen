@@ -9,7 +9,7 @@ her= herlib
 pyt= pylib
 val= validation
 
-PROCLIST= wqq zqq wjet zjet vbjet Njet 2Q 4Q QQh wcjet phjet hjet top \
+PROCLIST= wqq zqq wjet zjet vbjet Njet 2Q 4Q 6Qg QQh wcjet phjet hjet top \
 wphjet wphqq 2Qph
 
 LIBS= $(addsuffix lib,  $(PROCLIST)) 
@@ -112,5 +112,4 @@ package:
 
 validate:
 	cd validation; ./validate "val"
-
 

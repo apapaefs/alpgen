@@ -1,0 +1,25 @@
+1         ! generation mode: weighted smoke test
+6b1g_lhapdf_test1 ! string labeling the output files
+0         ! start with: 0=new grid, 1=previous warmup grid, 2=previous generation grid
+100000 1      ! N(events)/iteration and N(iter's) for initial grid optimiz
+100000         ! number evts to generate
+*** The above 5 lines provide mandatory inputs for all processes
+*** This library hard-wires gg -> b bbar b bbar b bbar g
+*** by using the 4Q jproc=6 matrix element with njets=3.
+ihvy 5
+ihvy2 5
+njets 3
+ptjmin 1
+ptbmin 1
+drjmin 0.1
+drbmin 0.1
+etajmax 10
+etabmax 10
+ih2 1
+ebeam 7000
+ilhapdf 1
+lhapdfst NNPDF23_nlo_as_0119
+lhapdfid 0
+iqopt 1
+qfac 1
+eoi 1 ! end of input

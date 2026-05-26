@@ -1,0 +1,158 @@
+##############################################################
+# Create a cuts object		                             
+# in this case the cuts objects removes *all* cuts that will
+# be applied within Herwig
+##############################################################
+cd /Herwig/EventHandlers
+create ThePEG::Cuts   /Herwig/Cuts/NoCuts
+
+#############################################################
+# Create a Les Houches file event
+# handler (set up & assigned below)
+#############################################################
+mkdir LesHouches
+cd LesHouches
+library LesHouches.so
+cd /Herwig/EventHandlers
+create ThePEG::LesHouchesFileReader theLHReader  LesHouches.so
+
+#############################################################
+# Create LHAPDF (set up & assigned below) ...            #
+#############################################################
+ cd /Herwig/Partons
+create ThePEG::LHAPDF thePDFset ThePEGLHAPDF.so
+
+#############################################################
+# Setup the Les Houches event handler ...                   #
+#############################################################
+cd /Herwig/EventHandlers
+
+create ThePEG::LesHouchesEventHandler LesHouchesHandler
+insert LesHouchesHandler:LesHouchesReaders[0] theLHReader
+set LesHouchesHandler:PartonExtractor /Herwig/Partons/PPExtractor
+
+set theLHReader:WeightWarnings    false # remove the weight warnings (not important)
+
+
+# this sets up the parton extractor ( do not change )
+# set LesHouchesHandler:PartonExtractor /Herwig/Partons/QCDExtractor
+#set LesHouchesHandler:StatLevel 2 # statistics information level
+
+set LesHouchesHandler:WeightOption VarNegWeight # handle negative weights as well 
+
+# set up ShowerHandler only; hadronization and decays are disabled below
+set LesHouchesHandler:CascadeHandler /Herwig/Shower/ShowerHandler
+set LesHouchesHandler:HadronizationHandler NULL
+set LesHouchesHandler:DecayHandler NULL
+
+
+# Input event file name:
+set theLHReader:FileName 6b1g_lhapdf_test1.lhe
+
+############################################################
+# Set up the LHAPDF
+# NNPDF23_nlo_as_0119 is the default PDF for MG5_aMC
+#############################################################
+cd /Herwig/Partons
+
+set /Herwig/Partons/thePDFset:PDFName NNPDF23_nlo_as_0119
+set /Herwig/Partons/RemnantDecayer:AllowTop Yes
+set /Herwig/EventHandlers/theLHReader:PDFA /Herwig/Partons/thePDFset
+set /Herwig/EventHandlers/theLHReader:PDFB /Herwig/Partons/thePDFset
+set /Herwig/Shower/ShowerHandler:PDFA /Herwig/Partons/thePDFset
+set /Herwig/Shower/ShowerHandler:PDFB /Herwig/Partons/thePDFset
+set /Herwig/Partons/MPIExtractor:FirstPDF /Herwig/Partons/thePDFset
+set /Herwig/Partons/MPIExtractor:SecondPDF /Herwig/Partons/thePDFset
+set /Herwig/Partons/thePDFset:RemnantHandler  /Herwig/Partons/HadronRemnants
+
+##################################################
+# Technical parameters for this run
+# no need to be modified in general
+##################################################
+cd /Herwig/Generators
+
+# theGenerator represents the Les Houches Handler generator
+create ThePEG::EventGenerator theGenerator
+set theGenerator:RandomNumberGenerator /Herwig/Random
+set theGenerator:StandardModelParameters /Herwig/Model
+set theGenerator:EventHandler /Herwig/EventHandlers/LesHouchesHandler
+set theGenerator:EventHandler:Cuts /Herwig/Cuts/NoCuts
+
+set theGenerator:NumberOfEvents 6
+set theGenerator:RandomNumberGenerator:Seed 31122002
+set theGenerator:DebugLevel 0
+set theGenerator:PrintEvent 100
+set theGenerator:MaxErrors 10000
+
+
+######################################################### 
+#########################################################
+# Force the shower to attempt only one final-state
+# g -> b bbar emission, then stop before hadronization.
+#########################################################
+cd /Herwig/Shower
+set ShowerHandler:DoISR No
+set ShowerHandler:DoFSR Yes
+set ShowerHandler:Interactions QCD
+set ShowerHandler:HardEmission None
+set ShowerHandler:LimitEmissions OneFinalStateEmission
+set ShowerHandler:TruncatedShower No
+set ShowerHandler:UseConstituentMasses No
+set ShowerHandler:MPIHandler NULL
+
+# Force accepted showers to contain the extra b bbar pair.  With only one
+# final-state emission enabled and all other final-state splittings deleted
+# below, this retries until the ME gluon undergoes g -> b bbar.
+library HwMinBShowerVeto.so
+create Herwig::MinBShowerVeto Force8BVeto HwMinBShowerVeto.so
+set Force8BVeto:MinB 8
+set Force8BVeto:ProbeTrials 100
+set Force8BVeto:CorrectionFile AlpGen8Q-LHEWriter.force8b.weights
+set Force8BVeto:ResetAfterAttempts 100000
+set Force8BVeto:Type Primary
+set Force8BVeto:Behaviour Shower
+insert ShowerHandler:FullShowerVetoes 0 Force8BVeto
+set ShowerHandler:MaxTry 100000
+
+# Keep only final-state g -> b,bbar.  In particular, remove
+# q -> q,g, g -> g,g, and g -> light/heavy flavours other than b.
+do SplittingGenerator:DeleteFinalSplitting u->u,g; QtoQGSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting d->d,g; QtoQGSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting s->s,g; QtoQGSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting c->c,g; QtoQGSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting b->b,g; QtoQGSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting t->t,g; QtoQGSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting g->g,g; GtoGGSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting g->u,ubar; GtoQQbarSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting g->d,dbar; GtoQQbarSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting g->s,sbar; GtoQQbarSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting g->c,cbar; GtoccbarSudakovFSR
+do SplittingGenerator:DeleteFinalSplitting g->t,tbar; GtoQQbarSudakovFSR
+
+cd /Herwig/Particles
+set b:NominalMass 4.7*GeV
+set bbar:NominalMass 4.7*GeV
+
+######################################################### 
+cd /Herwig/EventHandlers
+#set EventHandler:CascadeHandler        NULL 
+set LesHouchesHandler:HadronizationHandler  NULL
+# remove the quark check in case hadronization is turned off
+set /Herwig/Analysis/Basics:CheckQuark false
+set LesHouchesHandler:DecayHandler          NULL 
+# The handler for multiple parton interactions 
+set /Herwig/Shower/ShowerHandler:MPIHandler       NULL
+
+cd /Herwig/Analysis
+library LHEWriter.so
+create Herwig::LHEWriter /Herwig/Analysis/LHEWriter
+set /Herwig/Analysis/LHEWriter:SkipBeamRemnants Yes
+insert /Herwig/Generators/theGenerator:AnalysisHandlers 0 /Herwig/Analysis/LHEWriter
+
+# get /Herwig/Particles/p+:PDF:PDFName
+
+##################################################
+# Save run for later usage with 'Herwig run'
+##################################################
+cd /Herwig/Generators
+saverun AlpGen8Q-LHEWriter theGenerator
