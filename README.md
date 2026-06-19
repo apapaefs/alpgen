@@ -1,6 +1,7 @@
 # AlpGenMod: AlpGen with LHAPDF 6
 
-This is a modification of AlpGen version 2.14 to work on modern systems
+This repository modifies the original [ALPGEN](https://alpgen.web.cern.ch)
+event generator, version 2.14, to work on modern systems.
 
 # Compilation
 
