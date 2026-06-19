@@ -1,4 +1,6 @@
 6Qggen
+campaigns/
+__pycache__/
 *.o
 *.grid*
 *.lhe

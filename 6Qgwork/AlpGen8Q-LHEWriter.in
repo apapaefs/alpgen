@@ -47,7 +47,7 @@ set LesHouchesHandler:DecayHandler NULL
 
 
 # Input event file name:
-set theLHReader:FileName 6b1g_lhapdf_test1.lhe
+set theLHReader:FileName 6b1g_lhapdf_test2.lhe
 
 ############################################################
 # Set up the LHAPDF
@@ -82,7 +82,7 @@ set theGenerator:NumberOfEvents 6
 set theGenerator:RandomNumberGenerator:Seed 31122002
 set theGenerator:DebugLevel 0
 set theGenerator:PrintEvent 100
-set theGenerator:MaxErrors 10000
+set theGenerator:MaxErrors 1
 
 
 ######################################################### 
@@ -106,7 +106,13 @@ set ShowerHandler:MPIHandler NULL
 library HwMinBShowerVeto.so
 create Herwig::MinBShowerVeto Force8BVeto HwMinBShowerVeto.so
 set Force8BVeto:MinB 8
-set Force8BVeto:ProbeTrials 100
+set Force8BVeto:SplitMinBPt 15*GeV
+set Force8BVeto:SplitMaxBEta 2.7
+set Force8BVeto:SplitMinDeltaR 0.3
+set Force8BVeto:SplitMinDeltaRToOtherB 0.3
+# Herwig 7.3 limits QTilde ShowerHandler:MaxTry to 100000.  Reserve
+# post-probe attempts so the accepted shower can still be forced.
+set Force8BVeto:ProbeTrials 90000
 set Force8BVeto:CorrectionFile AlpGen8Q-LHEWriter.force8b.weights
 set Force8BVeto:ResetAfterAttempts 100000
 set Force8BVeto:Type Primary

@@ -72,6 +72,27 @@ the forced LHE event weights should be multiplied by the sidecar `p_hat`.
 This is a conditional shower approximation, not a replacement for a full
 `gg -> 8b` matrix element.
 
+# 6Qg campaign driver
+
+Parallel `6b+g -> 8b` campaigns can be run from `6Qgwork` with:
+
+```
+python3 run_6qg_8b_campaign.py --target-events 100000 --jobs 32 \
+  --setup-command 'module load herwig/stable-full-py3-rivet4'
+```
+
+The default template is `input_6b1g_lhapdf_example2`, which uses one 1M-event
+warmup iteration followed by 100M weighted-generation trials.
+All generated files are written under `6Qgwork/campaigns/<campaign>/`.  Each
+run has a unique tag, per-run inputs/logs/manifests, and a final reweighted
+LHE.  The driver prints live per-run stage updates plus periodic ETA summaries.
+During AlpGen mode 1 it also polls each run's `<tag>.mon`/`<tag>.stat` files to
+report warmup/weighted-generation event progress and per-run ETA.  Use
+`--progress-interval` for summary cadence, `--alpgen-progress-interval` for
+AlpGen file polling cadence, or `--no-progress` to disable the live monitor.
+Use `--dry-run` to inspect the planned run directories and commands without
+launching AlpGen or Herwig.
+
 # AI/LLM Usage
 
 A large part of these modifications have been generated via Claude Code and Codex.

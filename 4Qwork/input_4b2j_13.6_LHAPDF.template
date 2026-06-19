@@ -1,0 +1,29 @@
+1     ! generation mode
+${TAG}  ! string labeling the output files
+0 ! start with: 0=new grid, 1=previous warmup grid, 2=previous generation grid
+${NEVENTSGRID} 2  ! N(events)/iteration and N(iter's) for initial grid optimiz
+${NEVENTS}  ! number evts to generate
+*** The above 5 lines provide mandatory inputs for all processes
+*** (Comment lines are introduced by the three asteriscs)
+*** The lines below modify existing defaults for the hard process under study
+*** For a complete list of accessible parameters and their values,
+*** input 'print 1' (to display on the screen) or 'print 2' to write to file
+ihvy 5
+njets 2
+ptjmin  20
+drjmin 0.2
+drbmin 0.2
+etajmax 5.0
+etabmax 5.0
+ebeam 6800
+iqopt 1
+qfac 0.5
+ih2 1
+ilhapdf 1
+lhapdfst ${PDF}
+lhapdfid 0
+iseed1 ${SEED1}
+iseed2 ${SEED2}
+iseed3 ${SEED3}
+iseed4 ${SEED4}
+eoi 1 ! end of input
